@@ -18,6 +18,7 @@ $productos = $stmtProductos->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <h2>Crear Nuevo Combo</h2>
+    <a href="ver_combos.php" style="display:inline-block; margin-bottom: 20px; text-decoration:none; background:#6c757d; color:white; padding:10px 15px; border-radius:5px;">← Volver a Combos Disponibles</a>
     <form action="../controllers/comboController.php" method="POST" onsubmit="return validarFormulario();">
         <label for="nombre">Nombre del Combo:</label>
         <input type="text" name="nombre" id="nombre" required>

@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $pdo->commit();
-        header('Location: ../views/combos.php?mensaje=Combo creado exitosamente');
+        header('Location: ../views/ver_combos.php?mensaje=Combo creado exitosamente');
     } catch (Exception $e) {
         $pdo->rollBack();
         header('Location: ../views/crear_combo.php?mensaje=Error al crear combo: ' . $e->getMessage());
