@@ -1,0 +1,337 @@
+/* === Reset & Base === */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+}
+
+body {
+    background: linear-gradient(to right, #f4f7fa, #18e006);
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* === Container Wrapper === */
+.container {
+    width: 100%;
+    max-width: 900px;
+    background: #fff;
+    padding: 35px 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.7s ease;
+}
+
+/* === Title === */
+h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #1f3c88;
+}
+
+/* === Buttons === */
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+a.agregar-btn,
+a[href*="ver_"] {
+    background: #1f3c88;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    box-shadow: 0 6px 14px rgba(31, 60, 136, 0.2);
+}
+
+a.agregar-btn:hover,
+a[href*="ver_"]:hover {
+    background: #274bbd;
+}
+
+a[style] {
+    background-color: #6c757d !important;
+    color: white !important;
+}
+
+a[style]:hover {
+    background-color: #495057 !important;
+}
+
+/* === Forms === */
+form {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+}
+
+label {
+    display: block;
+    margin: 20px 0 8px;
+    font-weight: 600;
+    color: #1f3c88;
+    font-size: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.8px solid #dbe4f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9fbfd;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    border-color: #1f3c88;
+    outline: none;
+    box-shadow: 0 0 8px rgba(31, 60, 136, 0.2);
+}
+
+/* === Submit Button === */
+input[type="submit"] {
+    margin-top: 25px;
+    background: #1f3c88;
+    color: white;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 700;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+input[type="submit"]:hover {
+    background: #274bbd;
+    transform: translateY(-2px);
+}
+
+/* === Password Icon === */
+.password-container {
+    position: relative;
+}
+
+#toggleIcon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    cursor: pointer;
+}
+
+/* === Table === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+thead {
+    background: #1f3c88;
+    color: white;
+}
+
+thead th {
+    text-align: center;
+    padding: 16px 20px;
+    font-size: 1rem;
+    color: white;
+}
+
+tbody tr {
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #f0f2f5;
+}
+
+tbody tr:hover {
+    background-color: #f9fbfd;
+}
+
+tbody td {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+tbody a {
+    color: #1f3c88;
+    margin-right: 12px;
+}
+
+tbody a:hover {
+    text-decoration: underline;
+}
+
+/* === Messages === */
+.mensaje-exito,
+.toast,
+.mensaje {
+    padding: 16px 22px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Estilos específicos para .toast flotante */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #28a745; /* verde éxito */
+    color: white;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+/* Ocultar con transición */
+.toast.hide {
+    opacity: 0;
+}
+
+/* Enlace editar: amarillo oscuro */
+.editar-link {
+    color: #d4a017; /* amarillo oscuro */
+}
+
+.editar-link:hover {
+    text-decoration: underline;
+    color: #b38f10;
+}
+
+/* Enlace eliminar: rojo oscuro */
+.eliminar-link {
+    color: #c0392b; /* rojo oscuro */
+}
+
+.eliminar-link:hover {
+    text-decoration: underline;
+    color: #922b21;
+}
+.mensaje-exito,
+.toast {
+    background: #e6f4ea;
+    color: #2e7d32;
+    border-left: 5px solid #66bb6a;
+}
+
+.mensaje {
+    background: #fff9e6;
+    color: #8a6d3b;
+    border-left: 5px solid #f0ad4e;
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+    .container,
+    form {
+        padding: 25px 20px;
+    }
+
+    h2 {
+        font-size: 1.7rem;
+    }
+
+    input,
+    select,
+    input[type="submit"] {
+        font-size: 1rem;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    input[type="submit"],
+    a.agregar-btn {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    table,
+    form {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody td {
+        display: block;
+        padding: 10px;
+        text-align: right;
+        position: relative;
+        border-bottom: 1px solid #eee;
+    }
+
+    tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        font-weight: bold;
+        color: #1f3c88;
+        font-size: 0.9rem;
+    }
+
+    tbody tr {
+        display: block;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+}
