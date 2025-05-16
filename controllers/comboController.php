@@ -42,8 +42,8 @@ if (isset($_GET['eliminar'])) {
     try {
         $stmt = $pdo->prepare("DELETE FROM combo WHERE id_combo = ?");
         $stmt->execute([$id]);
-        header('Location: ../views/combos.php?mensaje=Combo eliminado');
+        header('Location: ../views/ver_combos.php?mensaje=Combo eliminado');
     } catch (Exception $e) {
-        header('Location: ../views/combos.php?mensaje=Error al eliminar combo');
+        header('Location: ../views/ver_combos.php?mensaje=Error al eliminar combo');
     }
 }

@@ -67,8 +67,7 @@ $combos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
-            <a href="editar_combo.php?id=<?= $combo['datos']['id_combo'] ?>" class="editar-link">Editar</a> |
+            
             <a href="../controllers/comboController.php?eliminar=<?= $combo['datos']['id_combo'] ?>" 
                onclick="return confirm('¿Estás seguro de eliminar este combo?')" 
                class="eliminar-link">Eliminar</a>
