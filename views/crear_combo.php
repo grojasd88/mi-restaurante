@@ -50,52 +50,68 @@ $productos = $stmtProductos->fetchAll(PDO::FETCH_ASSOC);
 
         <button type="button" onclick="agregarProducto()">+ Agregar Producto</button>
 
-        <ul id="productos-seleccionados"></ul>
+        <ul id="productos-seleccionados" style="list-style:none; padding-left:0;"></ul>
 
         <input type="submit" value="Crear Combo">
     </form>
 
     <script>
-    function agregarProducto() {
-        const producto = document.getElementById('producto');
-        const cantidad = document.getElementById('cantidad');
+function agregarProducto() {
+    const producto = document.getElementById('producto');
+    const cantidad = document.getElementById('cantidad');
 
-        if (!producto.value || !cantidad.value || cantidad.value <= 0) {
-            alert('Seleccione un producto válido y cantidad mayor a 0');
-            return;
-        }
-
-        const nombre = producto.options[producto.selectedIndex].text;
-        const ul = document.getElementById('productos-seleccionados');
-
-        // Crear elementos
-        const li = document.createElement('li');
-        li.textContent = nombre + ' - Cantidad: ' + cantidad.value;
-
-        const hidden = document.createElement('input');
-        hidden.type = 'hidden';
-        hidden.name = 'productos[]';
-        hidden.value = producto.value + ':' + cantidad.value;
-
-        li.appendChild(hidden);
-        ul.appendChild(li);
-
-        // Reset
-        producto.value = '';
-        cantidad.value = '';
+    if (!producto.value || !cantidad.value || cantidad.value <= 0) {
+        alert('Seleccione un producto válido y cantidad mayor a 0');
+        return;
     }
 
-    function validarFormulario() {
-        const nombre = document.getElementById('nombre').value.trim();
-        const precio = document.getElementById('precio').value;
-        const productos = document.querySelectorAll('input[name="productos[]"]');
+    const nombre = producto.options[producto.selectedIndex].text;
+    const ul = document.getElementById('productos-seleccionados');
 
-        if (nombre === '' || precio === '' || productos.length === 0) {
-            alert('Complete todos los campos y agregue al menos un producto.');
-            return false;
-        }
-        return true;
+    // Crear elementos
+    const li = document.createElement('li');
+    li.textContent = nombre + ' - Cantidad: ' + cantidad.value + ' ';
+
+    const hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.name = 'productos[]';
+    hidden.value = producto.value + ':' + cantidad.value;
+
+    // Crear símbolo de eliminar
+    const iconoEliminar = document.createElement('span');
+    iconoEliminar.textContent = '−';
+    iconoEliminar.title = 'Eliminar';
+    iconoEliminar.style.color = 'red';
+    iconoEliminar.style.cursor = 'pointer';
+    iconoEliminar.style.marginLeft = '10px';
+    iconoEliminar.style.fontWeight = 'bold';
+    iconoEliminar.style.fontSize = '20px';
+    iconoEliminar.onclick = function () {
+        ul.removeChild(li);
+    };
+
+    li.appendChild(hidden);
+    li.appendChild(iconoEliminar);
+    ul.appendChild(li);
+
+    // Resetear selección
+    producto.value = '';
+    cantidad.value = '';
+}
+
+function validarFormulario() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const precio = document.getElementById('precio').value;
+    const productos = document.querySelectorAll('input[name="productos[]"]');
+
+    if (nombre === '' || precio === '' || productos.length === 0) {
+        alert('Complete todos los campos y agregue al menos un producto.');
+        return false;
     }
-    </script>
+    return true;
+}
+</script>
+
+
 </body>
 </html>
