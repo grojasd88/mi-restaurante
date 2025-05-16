@@ -23,7 +23,6 @@ function agregarCombo($nombre, $tipo_promo, $precio, $descuento, $productos) {
                 (int)$cantidad
             ]);
         }
-
         $pdo->commit();
         return true;
     } catch (Exception $e) {
@@ -38,7 +37,7 @@ function eliminarCombo($id_combo) {
     try {
         $pdo->beginTransaction();
 
-        // Eliminar productos relacionados
+        // Eliminar productos 
         $pdo->prepare("DELETE FROM combo_producto WHERE id_combo = ?")->execute([$id_combo]);
 
         // Eliminar el combo
