@@ -35,12 +35,7 @@ require_once(__DIR__ . '/../models/mesas.php');
             background-color: #2ecc71;
             color: white;
         }
-
-        .mesa-reservada {
-            background-color: #f1c40f;
-            color: #333;
-        }
-
+        
         .mesa-ocupada {
             background-color: #e74c3c;
             color: white;
@@ -65,96 +60,62 @@ require_once(__DIR__ . '/../models/mesas.php');
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mesas = document.querySelectorAll('.mesa');
+    function mostrarToast(mensaje, tipo = 'info') {
+    const toast = document.createElement('div');
+    toast.textContent = mensaje;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.right = '20px';
+    toast.style.padding = '12px 18px';
+    toast.style.backgroundColor = tipo === 'error' ? '#e74c3c' : '#27ae60';
+    toast.style.color = 'white';
+    toast.style.borderRadius = '8px';
+    toast.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+    toast.style.zIndex = 1000;
+    toast.style.opacity = 1;
+    toast.style.transition = 'opacity 0.5s ease-out';
 
-            mesas.forEach(mesa => {
-                mesa.addEventListener('click', () => {
-                    const numero = mesa.dataset.numero;
-                    if (numero == 0) return; // Evita cambiar Domicilio
+    document.body.appendChild(toast);
 
-                    fetch('../controllers/mesasController.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ numero })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        // Quitar clases anteriores
-                        mesa.classList.remove('mesa-disponible', 'mesa-reservada', 'mesa-ocupada');
-                        // Aplicar la nueva clase
-                        mesa.classList.add(`mesa-${data.estado.toLowerCase()}`);
-                    })
-                    .catch(err => {
-                        console.error('Error:', err);
-                    });
-                });
+    setTimeout(() => {
+        toast.style.opacity = 0;
+        setTimeout(() => toast.remove(), 500);
+    }, 2000);
+}
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const mesas = document.querySelectorAll('.mesa');
+
+    mesas.forEach(mesa => {
+        mesa.addEventListener('click', () => {
+            const numero = mesa.dataset.numero;
+            if (numero == 0) return;
+
+            fetch('../controllers/mesasController.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ numero })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                 mostrarToast(data.error, 'error');
+                return;
+            }
+
+            // Redirigir al formulario después del cambio de estado
+            window.location.href = `../views/ver_pedidos.php?mesa=${numero}`;
+            })
+            .catch(err => {
+                mostrarToast('Error de red', 'error');
+                console.error('Error:', err);
             });
         });
-    </script>
-        <script>
-        function mostrarToast(mensaje, tipo = 'info') {
-            const toast = document.createElement('div');
-            toast.textContent = mensaje;
-            toast.style.position = 'fixed';
-            toast.style.bottom = '20px';
-            toast.style.right = '20px';
-            toast.style.padding = '12px 18px';
-            toast.style.backgroundColor = tipo === 'error' ? '#e74c3c' : '#27ae60';
-            toast.style.color = 'white';
-            toast.style.borderRadius = '8px';
-            toast.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-            toast.style.zIndex = 1000;
-            toast.style.opacity = 1;
-            toast.style.transition = 'opacity 0.5s ease-out';
-
-            document.body.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.opacity = 0;
-                setTimeout(() => toast.remove(), 500);
-            }, 2000);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const mesas = document.querySelectorAll('.mesa');
-
-            mesas.forEach(mesa => {
-                mesa.addEventListener('click', () => {
-                    const numero = mesa.dataset.numero;
-                    if (numero == 0) return;
-
-                    fetch('../controllers/mesasController.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ numero })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.error) {
-                            mostrarToast(data.error, 'error');
-                            return;
-                        }
-
-                        // Actualiza clases
-                        mesa.classList.remove('mesa-disponible', 'mesa-reservada', 'mesa-ocupada');
-                        mesa.classList.add(`mesa-${data.estado.toLowerCase()}`);
-
-                        // Muestra mensaje
-                        mostrarToast(`Mesa ${numero} ahora está ${data.estado}`);
-                    })
-                    .catch(err => {
-                        mostrarToast('Error de red', 'error');
-                        console.error('Error:', err);
-                    });
-                });
-            });
-        });
-    </script>
+    });
+});
+</script>
 
 </body>
 </html>

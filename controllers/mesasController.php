@@ -14,6 +14,7 @@ $numero = (int) $input['numero'];
 
 if ($numero === 0) {
     http_response_code(403);
+    header('Content-Type: application/json');
     echo json_encode(['error' => 'No se puede cambiar el estado de la mesa Domicilio']);
     exit;
 }
@@ -33,7 +34,7 @@ if (!$mesa) {
     exit;
 }
 
-$estados = ['disponible', 'reservada', 'ocupada'];
+$estados = ['disponible', 'ocupada'];
 $actual = strtolower($mesa['estado_mesa']);
 $indice = array_search($actual, $estados);
 $nuevo_estado = $estados[($indice + 1) % count($estados)];
@@ -50,5 +51,6 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([$id_nuevo_estado, $numero]);
 
 // Responder con el nuevo estado
+header('Content-Type: application/json');
 echo json_encode(['estado' => $nuevo_estado]);
 exit;

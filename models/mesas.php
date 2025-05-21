@@ -13,7 +13,6 @@ $mesas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 function obtenerClaseEstado($estado) {
     return match (strtolower($estado)) {
         'ocupada' => 'mesa-ocupada',
-        'reservada' => 'mesa-reservada',
         default => 'mesa-disponible',
     };
 }
